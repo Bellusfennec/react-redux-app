@@ -15,6 +15,9 @@ const App = () => {
   const changeTitle = (id) => {
     store.dispatch(actions.titleChanges(id));
   };
+  const deleteTask = (id) => {
+    store.dispatch(actions.taskDeleted(id));
+  };
 
   useEffect(() => {
     store.subscribe(() => setState(store.getState()));
@@ -31,6 +34,7 @@ const App = () => {
             <p> {`Compelete: ${el.completed}`}</p>
             <button onClick={() => completeTask(el.id)}>Complete</button>
             <button onClick={() => changeTitle(el.id)}>Change Title</button>
+            <button onClick={() => deleteTask(el.id)}>Delete</button>
             <hr />
           </li>
         ))}
