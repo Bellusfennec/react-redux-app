@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import * as actions from "./store/actions";
-import { initiateStore } from "./store/store";
-// import { compose, pipe } from "lodash/fp";
+import { titleChanges, taskDeleted, completeTask } from "./store/task";
+import configureStore from "./store/store";
 
-const store = initiateStore();
+const store = configureStore();
 
 const App = () => {
   const [state, setState] = useState(store.getState());
 
-  const completeTask = (id) => {
-    store.dispatch(actions.taskCompleted(id));
-  };
   const changeTitle = (id) => {
-    store.dispatch(actions.titleChanges(id));
+    store.dispatch(titleChanges(id));
   };
   const deleteTask = (id) => {
-    store.dispatch(actions.taskDeleted(id));
+    store.dispatch(taskDeleted(id));
   };
 
   useEffect(() => {
@@ -32,7 +28,9 @@ const App = () => {
           <li key={el.id}>
             <p>{el.title}</p>
             <p> {`Compelete: ${el.completed}`}</p>
-            <button onClick={() => completeTask(el.id)}>Complete</button>
+            <button onClick={() => store.dispatch(completeTask(el.id))}>
+              Complete
+            </button>
             <button onClick={() => changeTitle(el.id)}>Change Title</button>
             <button onClick={() => deleteTask(el.id)}>Delete</button>
             <hr />
