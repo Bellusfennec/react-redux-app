@@ -7,6 +7,7 @@ import {
   loadTasks,
   getTasks,
   getTasksLoadingStatus,
+  createTask,
 } from "./store/task";
 import configureStore from "./store/store";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,7 @@ const App = () => {
   return (
     <>
       <h1>App</h1>
+      <button onClick={() => dispatch(createTask())}>Create</button>
       <ul>
         {state.map((el) => (
           <li key={el.id}>
